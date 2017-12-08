@@ -1,1 +1,19 @@
-LoginComponent
+<div class="container d-table">
+  <form>
+    <div class="form-group">
+      <label for="username">用户名:</label>
+      <input [(ngModel)]="credential.username"
+        type="text" name="username"
+        id="username" class="form-control">
+    </div>
+    <div>
+      <label for="password">密码 :</label>
+      <input [(ngModel)]="credential.password"
+        type="password" name="password"
+        id="password" class="form-control">
+    </div>
+    <div [style.text-align]="'center'">
+      <button class="btn btn-primary" type="submit" (click)="login()">登录</button>
+    </div>
+  </form>
+</div>
