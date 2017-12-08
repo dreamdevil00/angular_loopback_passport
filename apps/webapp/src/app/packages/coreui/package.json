@@ -1,0 +1,9 @@
+{
+  "name": "coreui",
+  "version": "1.0.6",
+  "description": "CoreUI@1.0.6 的样式文件",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "4.0.0-beta.2"
+  }
+}
