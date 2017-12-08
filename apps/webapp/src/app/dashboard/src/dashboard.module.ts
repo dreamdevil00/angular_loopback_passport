@@ -8,10 +8,12 @@ import { IndexComponent } from './components/index.component';
 @NgModule({
   imports: [
     DashboardRoutingModule,
-    IndexComponent,
   ],
   exports: [],
-  declarations: [DashboardComponent],
+  declarations: [
+    DashboardComponent,
+    IndexComponent,
+  ],
   providers: [],
 })
 export class DashboardModule { }
