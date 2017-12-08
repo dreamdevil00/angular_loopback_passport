@@ -1,0 +1,14 @@
+{
+  "name": "ng_loopback_passport",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:api": "cd apps/api && nodemon",
+    "dev:webapp": "cd apps/webapp && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
