@@ -6,6 +6,7 @@
   "scripts": {
     "dev:api": "cd apps/api && nodemon",
     "dev:webapp": "cd apps/webapp && npm start",
+    "sdk:api": "cd apps/api && npm run sdk:api",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
