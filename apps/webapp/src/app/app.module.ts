@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// Third Party Modules
+import { LoopBackConfig, SDKBrowserModule } from './packages/api-sdk';
+
 // Local Modules
 import { AppRoutingModule } from './app-routing.module';
 import { AppStoreModule } from './app-store.module';
@@ -25,8 +28,13 @@ import { RouterComponent } from './components/router/router.component';
     AppRoutingModule,
     AppStoreModule,
     LayoutModule,
+    SDKBrowserModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    LoopBackConfig.filterOnUrl();
+  }
+}
