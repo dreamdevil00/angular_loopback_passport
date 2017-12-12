@@ -6,7 +6,8 @@
     "compression": {},
     "cors": {
       "params": {
-        "origin": true,
+        "origin": "*",
+        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
         "credentials": true,
         "maxAge": 86400
       }
@@ -38,6 +39,9 @@
       "paths": [
         "${restApiRoot}"
       ]
+    },
+    "./middleware/publish-config": {
+      "paths": ["/config.js"]
     }
   },
   "files": {},
