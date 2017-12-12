@@ -1,12 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-dashboard-content',
-  template: `App Dashboard`,
+  templateUrl: './dashboard.component.html',
 })
 
 export class DashboardComponent implements OnInit {
-  constructor() { }
+  public user;
+  constructor(private store: Store<any>) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.store
+      .select('app')
+      .subscribe((res) => {
+        this.user = res.currentUser;
+      })
+  }
 }

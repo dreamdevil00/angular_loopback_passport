@@ -1,19 +1,50 @@
-<div class="container d-table">
-  <form>
-    <div class="form-group">
-      <label for="username">用户名:</label>
-      <input [(ngModel)]="credential.username"
-        type="text" name="username"
-        id="username" class="form-control">
-    </div>
-    <div>
-      <label for="password">密码 :</label>
-      <input [(ngModel)]="credential.password"
-        type="password" name="password"
-        id="password" class="form-control">
-    </div>
-    <div [style.text-align]="'center'">
-      <button class="btn btn-primary" type="submit" (click)="login()">登录</button>
-    </div>
-  </form>
+<div class="container d-table" [ngSwitch]="authType">
+  <div class="text-center">
+    <p>登录方式</p>
+    <label for="auth-local">本地账户登录</label>
+    <input value="auth-local" type="radio" name="authType" checked="checked" [(ngModel)]="authType"/>
+    <label for="auth-ldap">LDAP登录</label>
+    <input value="auth-ldap" type="radio" name="authType" [(ngModel)]="authType"/>
+  </div>
+  <div *ngSwitchDefault>
+    <p class="text-center">登录方式： 本地账户</p>
+    <form class="form form-control">
+      <div class="form-group">
+        <label for="username">用户名:</label>
+        <input [(ngModel)]="localCredential.username"
+          type="text" name="username"
+          id="username" class="form-control">
+      </div>
+      <div>
+        <label for="password">密码 :</label>
+        <input [(ngModel)]="localCredential.password"
+          type="password" name="password"
+          id="password" class="form-control">
+      </div>
+      <div [style.text-align]="'center'">
+        <button class="btn btn-primary" type="submit" (click)="login({type: 'local'})">登录</button>
+      </div>
+    </form>
+  </div>
+  <div *ngSwitchCase="'auth-ldap'">
+    <p class="text-center">登录方式： LDAP</p>
+    <form class="form form-control">
+      <div class="form-group">
+        <label for="username">用户名:</label>
+        <input [(ngModel)]="ldapCredential.username"
+          type="text" name="username"
+          id="username" class="form-control">
+      </div>
+      <div>
+        <label for="password">密码 :</label>
+        <input [(ngModel)]="ldapCredential.password"
+          type="password" name="password"
+          id="password" class="form-control">
+      </div>
+      <div [style.text-align]="'center'">
+        <button class="btn btn-primary" type="submit" (click)="login({type: 'ldap'})">登录</button>
+      </div>
+    </form>
+  </div>
+
 </div>

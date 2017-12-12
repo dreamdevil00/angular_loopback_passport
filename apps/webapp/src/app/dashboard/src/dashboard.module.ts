@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
@@ -7,6 +8,7 @@ import { IndexComponent } from './components/index.component';
 
 @NgModule({
   imports: [
+    CommonModule,
     DashboardRoutingModule,
   ],
   exports: [],

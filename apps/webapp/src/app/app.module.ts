@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 // Third Party Modules
 import { LoopBackConfig, SDKBrowserModule } from './packages/api-sdk';
@@ -11,10 +12,12 @@ import { AppStoreModule } from './app-store.module';
 
 import { LayoutModule } from './packages/layout';
 
-// Local Components
+// Local Components && Services
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RouterComponent } from './components/router/router.component';
+
+import { AuthService } from './packages/auth-sdk';
 
 
 @NgModule({
@@ -25,16 +28,20 @@ import { RouterComponent } from './components/router/router.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     AppStoreModule,
     LayoutModule,
     SDKBrowserModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    AuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor() {
+    LoopBackConfig.setBaseURL('http://127.0.0.1:3000')
     LoopBackConfig.filterOnUrl();
   }
 }

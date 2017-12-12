@@ -11,16 +11,29 @@ import * as Auth from '../../state/auth.actions';
 
 export class LoginComponent implements OnInit {
 
-  public credential: { username: string, password: string } = {
+  public authType: string;
+
+  public localCredential: { username: string, password: string } = {
     username: 'Demo',
     password: 'Demo',
   };
+
+  public ldapCredential: { username: string, password: string } = {
+    username: 'Demo',
+    password: 'Demo',
+  };
+
 
   constructor(private store: Store<any>,) { }
 
   ngOnInit() { }
 
-  login() {
-    this.store.dispatch(new Auth.AuthLoginAction(this.credential));
+  login(payload: { type: string }) {
+    switch (payload.type) {
+      case 'local':
+        return this.store.dispatch(new Auth.AuthLocalLoginAction(this.localCredential));
+      case 'ldap':
+        return this.store.dispatch(new Auth.AuthLDAPLoginAction(this.ldapCredential));
+    }
   }
 }
