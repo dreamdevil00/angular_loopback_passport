@@ -1,5 +1,8 @@
-DashboardComponent
+<div class="header text-center">
+  <p>DashboardComponent</p>
+  <a [routerLink]="[ '/', 'logout' ]">Logout</a>
+</div>
 
-Hello {{ user | json }}
+<p class="text-center">Auth info</p>
+<p class="text-center"> {{ user | json }} </p>
 
-<a [routerLink]="[ '/', 'logout' ]">Logout</a>

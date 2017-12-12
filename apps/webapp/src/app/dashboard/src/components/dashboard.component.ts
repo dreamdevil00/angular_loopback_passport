@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.store
-      .select('app')
+      .select('auth')
       .subscribe((res) => {
         this.user = res.currentUser;
       })
