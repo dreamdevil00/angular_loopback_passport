@@ -11,8 +11,23 @@ module.exports = function(app) {
     },
   ];
 
-  User.create(sampleUser, function(err, instance) {
-    if (err) throw err;
-    console.log('Sample User Created!');
+  sampleUser.forEach((user) => {
+    let search = {};
+    for (var o in user) {
+      if (user.hasOwnProperty(o) && o !== 'password') {
+        search[o] = user[o];
+      }
+    }
+    User.findOne({where: search}, function(err, found) {
+      if (err) throw err;
+      if (!found) {
+        User.create(user, function(err, instance) {
+          if (err) throw err;
+          console.log(`${JSON.stringify(instance)} created!`);
+        });
+      } else {
+        console.log(`${JSON.stringify(user)} exists! Skipping create`);
+      }
+    });
   });
 };
