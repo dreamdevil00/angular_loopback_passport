@@ -1,8 +1,7 @@
 {
-  "name": "ng_loopback_passport",
+  "name": "angular_loopback_passport",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Integrate loopback with local auth and third-party auth",
   "scripts": {
     "dev:api": "cd apps/api && npm start",
     "dev:webapp": "cd apps/webapp && npm start",
@@ -11,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "cd apps/api && npm install && cd ../webapp && npm install"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["loopback", "passport", "third-party", "authentication"],
+  "author": "dreamdevil00",
   "license": "MIT"
 }
