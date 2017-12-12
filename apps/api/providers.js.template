@@ -2,13 +2,13 @@
 
 module.exports = {
   local: {
-    provider: "local",
-    module: "passport-local",
-    usernameField: "username",
-    passwordField: "password",
+    provider: 'local',
+    module: 'passport-local',
+    usernameField: 'username',
+    passwordField: 'password',
     authPath: "/auth/local", // in the frontend you must post /auth/local/callback to make it work
-    // successRedirect: "/auth/account",
-    // failureRedirect: "/local",
+    // successRedirect: '/auth/account',
+    // failureRedirect: '/local',
     failureFlash: false,
     callbackHTTPMethod: 'post',
     setAccessToken: true,
