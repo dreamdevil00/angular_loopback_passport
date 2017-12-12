@@ -1,0 +1,45 @@
+'use strict'
+
+module.exports = {
+  local: {
+    provider: "local",
+    module: "passport-local",
+    usernameField: "username",
+    passwordField: "password",
+    authPath: "/auth/local", // in the frontend you must post /auth/local/callback to make it work
+    // successRedirect: "/auth/account",
+    // failureRedirect: "/local",
+    failureFlash: false,
+    callbackHTTPMethod: 'post',
+    setAccessToken: true,
+    json: true,
+    session: false,
+  },
+  ldap: {
+    provider: 'ldap',
+    authScheme: 'ldap',
+    module: 'passport-ldapauth',
+    authPath: '/auth/ldap',
+    // successRedirect: '/auth/account',
+    // failureRedirect: '/ldap',
+    json: true,
+    session: false,
+    failureFlash: false,
+    callbackHTTPMethod: 'post',
+    setAccessToken: true,
+    profileAttributesFromLDAP: {
+      login: 'uid',
+      username: 'uid',
+      displayName: 'displayName',
+      email: 'mail',
+      externalId: 'uid',
+    },
+    server: {
+      url: 'ldap://ldap-server:1234',
+      searchBase: 'dc=domain,dc=fr',
+      searchFilter: '(cn={{username}})',
+      bindDN: 'your dn',
+      bindCredentials: 'your credentials',
+    },
+  },
+};
