@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { User, UserApi, LoopBackConfig } from '../../../api-sdk';
-import { config } from './auth.config';
 import { Observable } from 'rxjs/Observable';
 
 export enum AuthTypes {
@@ -21,8 +20,11 @@ export const localStorageInfo = `${storagePrefix}User`;
 
 @Injectable()
 export class AuthService {
-  private user: UserInfo
-
+  private user: UserInfo = {
+    authType: null,
+    userId: '',
+    access_token: '',
+  };
 
   constructor(
     private http: HttpClient,
@@ -31,9 +33,9 @@ export class AuthService {
   login(authType: AuthTypes, credentials: any) {
     switch (authType) {
       case AuthTypes.AUTH_LOCAL:
-        return this.http.post(config.authPath.local, credentials);
+        return this.http.post((window as any).config.authPath.local, credentials);
       case AuthTypes.AUTH_LDAP:
-        return this.http.post(config.authPath.ldap, credentials);
+        return this.http.post((window as any).config.authPath.ldap, credentials);
       default:
         return Observable.of({});
     }
@@ -41,12 +43,12 @@ export class AuthService {
 
   logout(): Observable<any> {
     if (this.isAuthenticated()) {
-      console.log('Logging out...')
+      console.log('Logging out...');
       const url = LoopBackConfig.getPath() + '/' + LoopBackConfig.getApiVersion()
         + '/Users/logout' + `?access_token=${this.user.access_token}`;
-      return this.http.post(url, {})
+      return this.http.post(url, {});
     } else {
-      return Observable.of({})
+      return Observable.of({});
     }
   }
 
@@ -63,15 +65,15 @@ export class AuthService {
     return new Promise((resolve) => {
       this.user = res;
       resolve(this.user);
-    })
+    });
   }
 
   removeUser() {
     window.localStorage.removeItem(localStorageInfo);
     this.user = {
       authType: null,
-      userId: null,
-      access_token: null,
-    }
+      userId: '',
+      access_token: '',
+    };
   }
 }

@@ -3,11 +3,11 @@
 const config = require('config');
 
 function createConfig() {
-  const config = {
+  const _config = {
     nodeEnv: process.env.NODE_ENV || 'development',
-
+    authPath: config.get('authPath'),
   };
-  return `window.config=${JSON.stringify(config)}`;
+  return `window.config=${JSON.stringify(_config)}`;
 }
 
 module.exports = function configModdleware() {
