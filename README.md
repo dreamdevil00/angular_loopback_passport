@@ -32,4 +32,4 @@ npm run dev
 Open your browser and navigate to  ```http://localhost:4200```
 
 Currently, if you want to use the ldap-auth, you must build up your own ldap
-server and add configurations specific your ldap server.
+server and add configurations specific to your ldap server.
