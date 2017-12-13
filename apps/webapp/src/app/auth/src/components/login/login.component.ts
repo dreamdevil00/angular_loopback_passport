@@ -11,7 +11,7 @@ import * as Auth from '../../state/auth.actions';
 
 export class LoginComponent implements OnInit {
 
-  public authType: string;
+  public authType: string = 'auth-local';
 
   public localCredential: { username: string, password: string } = {
     username: 'Demo',
