@@ -13,27 +13,18 @@ export class LoginComponent implements OnInit {
 
   public authType: string = 'auth-local';
 
-  public localCredential: { username: string, password: string } = {
+  public credential: { username: string, password: string } = {
     username: 'Demo',
     password: 'Demo',
   };
-
-  public ldapCredential: { username: string, password: string } = {
-    username: 'Demo',
-    password: 'Demo',
-  };
-
-
   constructor(private store: Store<any>,) { }
 
   ngOnInit() { }
 
-  login(payload: { type: string }) {
-    switch (payload.type) {
-      case 'local':
-        return this.store.dispatch(new Auth.AuthLocalLoginAction(this.localCredential));
-      case 'ldap':
-        return this.store.dispatch(new Auth.AuthLDAPLoginAction(this.ldapCredential));
-    }
+  login() {
+    this.store.dispatch(new Auth.AuthLoginAction({
+      authType: this.authType,
+      credentials: this.credential,
+    }));
   }
 }

@@ -12,13 +12,9 @@ const initialState: State = {
 
 export function reducer(state: State = initialState, action: Auth.AuthActionsType): State {
   switch (action.type) {
-    case Auth.AuthActions.AUTH_LOCAL_LOGIN:
+    case Auth.AuthActions.AUTH_LOGIN:
       return Object.assign({}, state);
-    case Auth.AuthActions.AUTH_LOCAL_LOGIN_SUCCESS:
-      return Object.assign({}, state, { currentUser: action.payload, loggedIn: true })
-    case Auth.AuthActions.AUTH_LDAP_LOGIN:
-      return Object.assign({}, initialState);
-    case Auth.AuthActions.AUTH_LDAP_LOGIN_SUCCESS:
+    case Auth.AuthActions.AUTH_LOGIN_SUCCESS:
       return Object.assign({}, state, { currentUser: action.payload, loggedIn: true })
     case Auth.AuthActions.AUTH_LOGOUT_SUCCESS:
       return Object.assign({}, state, { loggedIn: false, currentUser: null})

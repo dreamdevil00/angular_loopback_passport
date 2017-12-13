@@ -22,69 +22,36 @@ export class AuthEffects {
 
   @Effect({ dispatch: false })
   localLogin = this.actions$
-    .ofType(auth.AuthActions.AUTH_LOCAL_LOGIN)
-    .do((action: auth.AuthLocalLoginAction) => {
+    .ofType(auth.AuthActions.AUTH_LOGIN)
+    .do((action: auth.AuthLoginAction) => {
+      const authType = action.payload.authType === 'auth-local' ? AuthTypes.AUTH_LOCAL : AuthTypes.AUTH_LDAP;
       this.authService
-        .login(AuthTypes.AUTH_LOCAL, action.payload)
+        .login(authType, action.payload.credentials)
         .subscribe(
-          (success) => this.store.dispatch(new auth.AuthLocalLoginSuccessAction(success)),
-          (error) => this.store.dispatch(new auth.AuthLocalLoginErrorAction(error))
+          (success: any) => this.store.dispatch(new auth.AuthLoginSuccessAction({
+            authType: authType,
+            userId: success.userId,
+            access_token: success.access_token,
+          })),
+          (error) => this.store.dispatch(new auth.AuthLoginErrorAction(error))
         )
     });
 
   @Effect({ dispatch: false })
-  localLoginSuccess = this.actions$
-    .ofType(auth.AuthActions.AUTH_LOCAL_LOGIN_SUCCESS)
-    .do((action: auth.AuthLocalLoginSuccessAction) => {
-      const data: UserInfo = {
-        authType: AuthTypes.AUTH_LOCAL,
-        ...action.payload,
-      }
-      this.authService.setUser(data);
+  loginSuccess = this.actions$
+    .ofType(auth.AuthActions.AUTH_LOGIN_SUCCESS)
+    .do((action: auth.AuthLoginSuccessAction) => {
+      this.authService.setUser(action.payload);
       this.store.dispatch({ type: 'APP_REDIRECT_ROUTER' });
     }
   )
 
   @Effect({ dispatch: false })
-  localLoginError = this.actions$
-    .ofType(auth.AuthActions.AUTH_LOCAL_LOGIN_ERROR)
-    .do((error) => {
+  loginError = this.actions$
+    .ofType(auth.AuthActions.AUTH_LOGIN_ERROR)
+    .do((error: auth.AuthLoginErrorAction) => {
       console.log(error);
-      alert(error);
-    });
-
-
-    @Effect({ dispatch: false })
-  ldapLogin = this.actions$
-    .ofType(auth.AuthActions.AUTH_LDAP_LOGIN)
-    .do((action: auth.AuthLDAPLoginAction) => {
-      this.authService
-        .login(AuthTypes.AUTH_LDAP, action.payload)
-        .subscribe(
-          (success) => this.store.dispatch(new auth.AuthLDAPLoginSuccessAction(success)),
-          (error) => this.store.dispatch(new auth.AuthLDAPLoginErrorAction(error))
-        )
-    });
-
-  @Effect({ dispatch: false })
-  ldapLoginSuccess = this.actions$
-    .ofType(auth.AuthActions.AUTH_LDAP_LOGIN_SUCCESS)
-    .do((action: auth.AuthLDAPLoginSuccessAction) => {
-      const data: UserInfo = {
-        authType: AuthTypes.AUTH_LDAP,
-        ...action.payload,
-      }
-      this.authService.setUser(data);
-      this.store.dispatch({ type: 'APP_REDIRECT_ROUTER' });
-    }
-  )
-
-  @Effect({ dispatch: false })
-  ldapLoginError = this.actions$
-    .ofType(auth.AuthActions.AUTH_LDAP_LOGIN_ERROR)
-    .do((error) => {
-      console.log(error);
-      alert(JSON.stringify(error));
+      alert(error.payload.message);
     });
 
   @Effect({ dispatch: false })
