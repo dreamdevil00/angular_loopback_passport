@@ -6,6 +6,7 @@ function createConfig() {
   const _config = {
     nodeEnv: process.env.NODE_ENV || 'development',
     authPath: config.get('authPath'),
+    baseUrl: config.get('api.baseUrl'),
   };
   return `window.config=${JSON.stringify(_config)}`;
 }

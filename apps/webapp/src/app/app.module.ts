@@ -41,7 +41,8 @@ import { AuthService } from './packages/auth-sdk';
 })
 export class AppModule {
   constructor() {
-    LoopBackConfig.setBaseURL('http://127.0.0.1:3000')
+    const baseUrl = (window as any).config.baseUrl;
+    LoopBackConfig.setBaseURL(baseUrl);
     LoopBackConfig.filterOnUrl();
   }
 }
