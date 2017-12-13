@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// Third Party
 import { Router } from '@angular/router';
-
+// Third Party
 import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
@@ -13,8 +12,9 @@ import 'rxjs/add/operator/take';
 
 
 // Local
+import { UserApi } from '../../../packages/api-sdk';
 import * as auth from './auth.actions';
-import { AuthService, AuthTypes, localStorageInfo, UserInfo } from '../../../packages/auth-sdk';
+import { AuthService, AuthTypes } from '../../../packages/auth-sdk';
 
 
 @Injectable()
@@ -28,11 +28,7 @@ export class AuthEffects {
       this.authService
         .login(authType, action.payload.credentials)
         .subscribe(
-          (success: any) => this.store.dispatch(new auth.AuthLoginSuccessAction({
-            authType: authType,
-            userId: success.userId,
-            access_token: success.access_token,
-          })),
+          (success: any) => this.store.dispatch(new auth.AuthLoginSuccessAction(success)),
           (error) => this.store.dispatch(new auth.AuthLoginErrorAction(error))
         )
     });
@@ -41,7 +37,6 @@ export class AuthEffects {
   loginSuccess = this.actions$
     .ofType(auth.AuthActions.AUTH_LOGIN_SUCCESS)
     .do((action: auth.AuthLoginSuccessAction) => {
-      this.authService.setUser(action.payload);
       this.store.dispatch({ type: 'APP_REDIRECT_ROUTER' });
     }
   )
@@ -58,7 +53,7 @@ export class AuthEffects {
   logout = this.actions$
     .ofType(auth.AuthActions.AUTH_LOGOUT)
     .do((action: auth.AuthLogoutAction) => {
-      this.authService
+      this.userApi
         .logout()
         .subscribe(
           (success) => {
@@ -75,7 +70,6 @@ export class AuthEffects {
   logoutSuccess = this.actions$
     .ofType(auth.AuthActions.AUTH_LOGOUT_SUCCESS)
     .do((action: auth.AuthLogoutSuccessAction) => {
-      this.authService.removeUser();
       this.router.navigate(['/']);
     }
   )
@@ -90,7 +84,7 @@ export class AuthEffects {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
+    private userApi: UserApi,
     private store: Store<any>,
     private actions$: Actions,
     private authService: AuthService,

@@ -22,7 +22,7 @@
     "loopback": "^3.0.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^4.0.0",
-    "loopback-component-passport": "^3.4.1",
+    "loopback-component-passport": "git+https://github.com/dreamdevil00/loopback-component-passport.git",
     "passport-ldapauth": "^2.0.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.0.1",

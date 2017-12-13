@@ -1,0 +1,6 @@
+{
+  "name": "auth-sdk",
+  "version": "0.0.0",
+  "description": "A login service patch for api sdk to integrate third party login mechanism",
+  "license": "MIT"
+}
